@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          :root {
+            --void: oklch(15% 0.016 260);
+            --void-raised: oklch(20% 0.02 260);
+            --void-deep: oklch(11.5% 0.014 260);
+            --text: oklch(95% 0.008 90);
+            --text-soft: oklch(74% 0.02 260);
+            --text-faint: oklch(50% 0.02 260);
+            --line: oklch(32% 0.02 260);
+            --line-bright: oklch(45% 0.03 260);
+            --track: oklch(80% 0.18 165);
+            --track-dim: oklch(80% 0.18 165 / 0.14);
+            --flag: oklch(72% 0.19 320);
+            --flag-dim: oklch(72% 0.19 320 / 0.12);
+            --display: "Space Grotesk", system-ui, sans-serif;
+            --sans: "IBM Plex Sans", system-ui, sans-serif;
+            --mono: "IBM Plex Mono", ui-monospace, monospace;
+          }
+          * { box-sizing: border-box; }
+          html { background: var(--void-deep); }
+          body { margin: 0; background: var(--void-deep); color: var(--text); font-family: var(--sans); line-height: 1.6; cursor: default; }
+          a { color: var(--track); text-decoration: none; }
+          a:hover { color: var(--flag); }
+          h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; margin: 0; color: var(--text); letter-spacing: -0.01em; }
+          p { margin: 0; }
+          ul { margin: 0; padding: 0; list-style: none; }
+          .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+          section { padding: 88px 0; position: relative; }
+          .alt { background: var(--void-raised); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+          /* CV-confidence chip */
+          .chip-cv { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--track); border: 1px solid var(--track); padding: 6px 12px; background: var(--track-dim); margin-bottom: 20px; }
+          .chip-cv .conf { color: var(--text-faint); }
+          .chip-cv .conf::before { content: "// CONF "; }
+          /* bounding-box corners */
+          .bbox { position: relative; }
+          .bc { position: absolute; width: 14px; height: 14px; pointer-events: none; }
+          .bbox-static .bc { border-color: var(--track); }
+          .bc.tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+          .bc.tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+          .bc.bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+          .bc.br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+          .bbox-hover .bc { border-color: var(--track); opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease; }
+          .bbox-hover .bc.tl { transform: translate(4px, 4px); }
+          .bbox-hover .bc.tr { transform: translate(-4px, 4px); }
+          .bbox-hover .bc.bl { transform: translate(4px, -4px); }
+          .bbox-hover .bc.br { transform: translate(-4px, -4px); }
+          .bbox-hover:hover .bc { opacity: 1; transform: none; }
+          /* section chrome */
+          .sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
+          .sec-title { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+          .sec-desc { color: var(--text-soft); font-size: 1.02rem; max-width: 620px; margin-top: 10px; }
+          .sec-idx { font-family: var(--mono); font-size: 12px; color: var(--text-faint); border: 1px solid var(--line); padding: 5px 10px; }
+          /* nav — HUD status bar */
+          .nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 60; background: color-mix(in oklch, var(--void-deep) 82%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+          .nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; max-width: 1180px; margin: 0 auto; gap: 20px; }
+          .brand { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-weight: 600; font-size: 0.9rem; color: var(--text); letter-spacing: 0.04em; }
+          .brand-mark { font-family: var(--mono); font-size: 11px; color: var(--track); border: 1px solid var(--track); width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; }
+          .nav-links { display: flex; gap: 26px; }
+          .nav-links a { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-soft); }
+          .nav-links a:hover { color: var(--track); }
+          .nav-right { display: flex; align-items: center; gap: 18px; }
+          .rec { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--text-faint); }
+          .rec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--flag); }
+          @media (prefers-reduced-motion: no-preference) { .rec-dot { animation: blink 1.6s steps(1) infinite; } }
+          @keyframes blink { 50% { opacity: 0.15; } }
+          .nav-actions { display: flex; align-items: center; gap: 10px; }
+          /* bracket-target buttons */
+          .btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; padding: 10px 16px; border: 1px solid var(--line-bright); color: var(--text); background: transparent; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+          .btn:hover { border-color: var(--track); color: var(--track); background: var(--track-dim); }
+          .btn-flag:hover { border-color: var(--flag); color: var(--flag); background: var(--flag-dim); }
+          .btn-sm { padding: 7px 12px; font-size: 11px; }
+          /* hero */
+          .hero { padding: 168px 0 100px; border-bottom: 1px solid var(--line); overflow: hidden; }
+          .hero-inner { max-width: 740px; position: relative; z-index: 2; }
+          .mesh { position: absolute; left: 0; right: 0; bottom: 0; height: 240px; overflow: hidden; pointer-events: none; opacity: 0.4; -webkit-mask-image: linear-gradient(to top, black, transparent); mask-image: linear-gradient(to top, black, transparent); z-index: 1; }
+          .mesh-grid { position: absolute; inset: -60% -20% -20% -20%; background-image: linear-gradient(var(--line-bright) 1px, transparent 1px), linear-gradient(90deg, var(--line-bright) 1px, transparent 1px); background-size: 46px 46px; transform: perspective(420px) rotateX(62deg); }
+          .hero h1 { font-size: clamp(2.4rem, 5vw, 3.9rem); line-height: 1.08; margin-bottom: 22px; }
+          .hero h1 .hi { color: var(--track); }
+          .hero p.lede { font-size: 1.12rem; color: var(--text-soft); max-width: 600px; margin-bottom: 38px; }
+          .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+          .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+          .stat { padding: 18px; border: 1px solid var(--line); }
+          .stat-num { font-family: var(--mono); font-size: 1.35rem; font-weight: 600; color: var(--track); }
+          .stat-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-faint); margin-top: 6px; }
+          /* featured */
+          .feat-grid { display: grid; grid-template-columns: 0.95fr 1.1fr; gap: 56px; align-items: start; }
+          .feat-media { position: relative; overflow: hidden; border: 1px solid var(--line-bright); }
+          .feat-media img { width: 100%; display: block; filter: grayscale(0.1) contrast(1.05) brightness(0.94); }
+          .sweep { position: absolute; left: 0; right: 0; height: 2px; background: var(--track); box-shadow: 0 0 14px 2px var(--track); top: -6%; opacity: 0; }
+          @media (prefers-reduced-motion: no-preference) {
+            .feat-media:hover .sweep { opacity: 0.9; animation: sweepmove 1.7s linear infinite; }
+          }
+          @keyframes sweepmove { 0% { top: -6%; } 100% { top: 104%; } }
+          .media-cap { position: absolute; left: 14px; bottom: 14px; background: color-mix(in oklch, var(--void) 88%, transparent); border: 1px solid var(--track); font-family: var(--mono); font-size: 11px; padding: 6px 10px; letter-spacing: 0.03em; color: var(--track); }
+          .feat-title { font-family: var(--display); font-size: 1.55rem; margin-bottom: 22px; line-height: 1.25; font-weight: 500; color: var(--text-soft); }
+          .hl-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+          .hl-item { display: flex; gap: 16px; }
+          .hl-num { font-family: var(--mono); font-size: 11px; color: var(--track); border: 1px solid var(--line-bright); padding: 4px 7px; height: fit-content; flex-shrink: 0; }
+          .hl-item p { color: var(--text-soft); font-size: 0.96rem; }
+          .hl-item strong { color: var(--text); font-weight: 600; }
+          .link-arrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--track); border-bottom: 1px solid var(--track); padding-bottom: 3px; }
+          .link-arrow:hover { color: var(--flag); border-color: var(--flag); }
+          /* project */
+          .proj-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+          .proj-title { font-size: 1.9rem; margin-top: 6px; }
+          .proj-desc { color: var(--text-soft); font-size: 1.02rem; max-width: 780px; margin-bottom: 40px; }
+          .viewport-frame { border: 1px solid var(--line-bright); margin-bottom: 40px; }
+          .viewport-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+          .viewport-bar .url { border: 1px solid var(--line); padding: 3px 10px; color: var(--text-soft); }
+          .viewport-body { height: 250px; background-image: repeating-linear-gradient(135deg, var(--void) 0 12px, var(--void-raised) 12px 13px); display: flex; align-items: center; justify-content: center; }
+          .viewport-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid var(--line-bright); padding: 8px 14px; color: var(--text-soft); }
+          .feat3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 32px; }
+          .feat3-item { background: var(--void); padding: 26px; }
+          .feat3-item .n { font-family: var(--mono); font-size: 11px; color: var(--track); border: 1px solid var(--line-bright); display: inline-block; padding: 3px 7px; margin-bottom: 14px; }
+          .feat3-item h4 { font-family: var(--sans); font-weight: 600; font-size: 1.02rem; margin-bottom: 8px; }
+          .feat3-item p { color: var(--text-soft); font-size: 0.92rem; }
+          .pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+          .pill { font-family: var(--mono); font-size: 11.5px; color: var(--text-soft); }
+          .pill::before { content: "\2039 "; color: var(--flag); }
+          .pill::after { content: " \203A"; color: var(--flag); }
+          /* kinematic-chain experience timeline */
+          .chain { position: relative; max-width: 900px; }
+          .chain::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+          .tl-item { position: relative; padding: 0 0 44px 40px; }
+          .tl-item:last-child { padding-bottom: 0; }
+          .joint { position: absolute; left: 0; top: 2px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--track); background: var(--void-deep); }
+          .tl-item.current .joint { box-shadow: 0 0 0 5px var(--track-dim); }
+          @media (prefers-reduced-motion: no-preference) { .tl-item.current .joint { animation: jpulse 2.2s infinite; } }
+          @keyframes jpulse { 50% { box-shadow: 0 0 0 8px var(--track-dim); } }
+          .tl-date { display: inline-block; font-family: var(--mono); font-size: 11px; color: var(--track); border: 1px solid var(--line-bright); padding: 3px 8px; margin-bottom: 12px; }
+          .tl-company { font-family: var(--display); font-size: 1.25rem; margin-bottom: 4px; font-weight: 600; }
+          .tl-role { font-weight: 600; font-size: 1.01rem; margin-bottom: 2px; }
+          .tl-sub { font-size: 0.85rem; color: var(--text-faint); margin-bottom: 16px; }
+          .tl-bullets { display: flex; flex-direction: column; gap: 9px; }
+          .tl-bullets li { position: relative; padding-left: 18px; color: var(--text-soft); font-size: 0.94rem; }
+          .tl-bullets li::before { content: "\203A"; position: absolute; left: 0; color: var(--flag); font-weight: 700; }
+          /* skills — telemetry panels */
+          .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+          .skill-panel { background: var(--void); padding: 26px; }
+          .skill-panel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+          .skill-idx { font-family: var(--mono); font-size: 11px; color: var(--track); }
+          .skill-panel h3 { font-family: var(--sans); font-weight: 600; font-size: 0.98rem; flex: 1; }
+          .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--track); flex-shrink: 0; }
+          .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+          .skill-tag { font-family: var(--mono); font-size: 11px; color: var(--text-soft); }
+          .skill-tag::before { content: "\2039"; color: var(--line-bright); margin-right: 2px; }
+          .skill-tag::after { content: "\203A"; color: var(--line-bright); margin-left: 2px; }
+          .skill-tag.primary { color: var(--track); }
+          .skill-tag.primary::before, .skill-tag.primary::after { color: var(--track); }
+          /* education */
+          .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+          .edu-card { padding: 28px; border: 1px solid var(--line); }
+          .edu-verified { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--track); border: 1px solid var(--track); padding: 3px 8px; margin-bottom: 16px; }
+          .edu-degree { font-family: var(--display); font-size: 1.15rem; margin-bottom: 10px; font-weight: 600; }
+          .edu-school { color: var(--text-soft); font-family: var(--mono); font-size: 0.88rem; margin-bottom: 4px; }
+          .edu-date { color: var(--text-faint); font-family: var(--mono); font-size: 0.8rem; }
+          /* footer */
+          .footer { border-top: 1px solid var(--line); padding: 56px 0 30px; }
+          .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-bottom: 40px; }
+          .footer-name { font-family: var(--display); font-size: 1.3rem; margin-bottom: 8px; font-weight: 600; }
+          .footer-tag { color: var(--text-faint); font-size: 0.88rem; }
+          .footer-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+          .footer-links a { font-family: var(--mono); font-size: 12px; color: var(--text-soft); }
+          .footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; font-family: var(--mono); font-size: 11px; color: var(--text-faint); text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+          /* reticle + coord readout (decorative, JS-driven, degrade gracefully) */
+          .reticle { position: fixed; top: 0; left: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 1px solid var(--track); border-radius: 50%; pointer-events: none; z-index: 300; opacity: 0.5; transform: translate(-100px, -100px); }
+          .reticle::before, .reticle::after { content: ""; position: absolute; background: var(--track); }
+          .reticle::before { width: 8px; height: 1px; top: 50%; left: 50%; transform: translate(-4px, 0); }
+          .reticle::after { width: 1px; height: 8px; left: 50%; top: 50%; transform: translate(0, -4px); }
+          .coord { position: fixed; left: 20px; bottom: 16px; font-family: var(--mono); font-size: 10.5px; color: var(--text-faint); z-index: 250; letter-spacing: 0.04em; pointer-events: none; background: color-mix(in oklch, var(--void-deep) 70%, transparent); padding: 5px 9px; border: 1px solid var(--line); }
+          .coord span { color: var(--track); }
+          @media (hover: none) { .reticle, .coord { display: none; } }
+          @media (max-width: 900px) {
+            .feat-grid, .edu-grid { grid-template-columns: 1fr; }
+            .feat3, .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+          }
+          @media (max-width: 720px) {
+            .nav-links { display: none; }
+            .hero { padding-top: 140px; }
+          }
+        </style>
+      </helmet>
+
+      <div class="reticle"></div>
+      <div class="coord">X <span class="coord-x">0000</span>&nbsp;&nbsp;Y <span class="coord-y">0000</span></div>
+
+      <nav class="nav">
+        <div class="nav-row">
+          <div class="brand"><span class="brand-mark">EB</span>ERIC_BRAHMS</div>
+          <div class="nav-links">
+            <a href="#about">01 About</a>
+            <a href="#featured">02 Featured</a>
+            <a href="#side-projects">03 Project</a>
+            <a href="#experience">04 Experience</a>
+            <a href="#skills">05 Skills</a>
+            <a href="#education">06 Edu</a>
+          </div>
+          <div class="nav-right">
+            <div class="rec"><span class="rec-dot"></span>REC</div>
+            <div class="nav-actions">
+              <a href="#" class="btn btn-sm">Resume</a>
+              <a href="mailto:eric@brah.ms" class="btn btn-flag btn-sm">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        <section class="hero" id="about">
+          <div class="mesh"><div class="mesh-grid"></div></div>
+          <div class="wrap hero-inner">
+            <div class="chip-cv">[ Subject ] eric_brahms.hmn <span class="conf">0.99</span></div>
+            <h1>Engineering infrastructure for spatial computing, robotics measurement &amp; <span class="hi">AI workflows.</span></h1>
+            <p class="lede">Principal software engineer and technical leader with 12+ years architecting hardware-in-the-loop automation, robotics-based performance measurement systems, and AI-driven analysis tools for XR and aerospace products.</p>
+            <div class="cta-row">
+              <a href="#featured" class="btn">[ Featured Work ]</a>
+              <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-flag">[ Theme Park Predictor ]</a>
+              <a href="mailto:eric@brah.ms" class="btn">eric@brah.ms</a>
+            </div>
+            <div class="stats">
+              <div class="stat bbox-hover"><span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span><div class="stat-num">12+</div><div class="stat-label">Years technical leadership</div></div>
+              <div class="stat bbox-hover"><span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span><div class="stat-num">Google XR</div><div class="stat-label">Partnership technical lead</div></div>
+              <div class="stat bbox-hover"><span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span><div class="stat-num">1,000s</div><div class="stat-label">Daily automated AI evaluations</div></div>
+              <div class="stat bbox-hover"><span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span><div class="stat-num">SAVV</div><div class="stat-label">System analysis, verification &amp; validation</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="featured">
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <div class="chip-cv">[ Feature ] display_integration.ml <span class="conf">1.00</span></div>
+                <h2 class="sec-title">Display Integration — Waveguides, Light Engines &amp; Human Comfort</h2>
+                <p class="sec-desc">Our team's work in System Analysis, Verification, and Validation (SAVV) — optics integration, robotics testing, and AI-assisted workflows — as featured on MagicLeap.com.</p>
+              </div>
+              <div class="sec-idx">02 / 06</div>
+            </div>
+
+            <div class="feat-grid">
+              <div class="feat-media bbox-static">
+                <span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span>
+                <span class="sweep"></span>
+                <img src="https://cdn.prod.website-files.com/67083eaf123e93296073a9a1/68f674d90ec714478b13ea01_hq-2025-einstein-robo-test-savv-(orange-mech-arm)-38a5294-v3-1320x1320-72dpi-s1-adj-fin-wo-leg.jpg" alt="Magic Leap SAVV robotics performance-testing platform" />
+                <div class="media-cap">&gt;&gt; SAVV_ROBOTIC_TEST_FIXTURE</div>
+              </div>
+              <div>
+                <h3 class="feat-title">"Our engineering team tightly integrates display subassemblies, combining waveguides, light engines, and human-centric calibration to deliver advanced displays built for augmented reality."</h3>
+                <div class="hl-list">
+                  <div class="hl-item"><div class="hl-num">01</div><p><strong>Robotics-based spatial measurement:</strong> led the team architecting a robotics-based measurement platform — precision motion capture, display capture, computer vision, and synchronization — for millimeter-level spatial tracking &amp; display evaluation.</p></div>
+                  <div class="hl-item"><div class="hl-num">02</div><p><strong>Cross-team platform adoption:</strong> drove adoption of the robotics-based performance measurement platform across perception, graphics, mechanical, electrical, and calibration teams by establishing trusted, data-driven workflows.</p></div>
+                  <div class="hl-item"><div class="hl-num">03</div><p><strong>World-lock &amp; hand-tracking benchmarks:</strong> replaced subjective manual evaluations with vision and signal-processing pipelines to quantify registration error, jitter, drift, and motion-to-photon latency.</p></div>
+                </div>
+                <a href="https://www.magicleap.com/display-integration" target="_blank" rel="noopener noreferrer" class="link-arrow">Read full article on MagicLeap.com &#8599;</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="alt" id="side-projects">
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <div class="chip-cv">[ Project ] parks.brah.ms <span class="conf">0.97</span></div>
+                <h2 class="sec-title">Theme Park Predictor</h2>
+              </div>
+              <div class="sec-idx">03 / 06</div>
+            </div>
+
+            <div class="proj-head">
+              <h3 class="proj-title">Theme Park Predictor</h3>
+              <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-flag btn-sm">Visit Project &#8599;</a>
+            </div>
+            <p class="proj-desc">Leverages machine-learning models, historical ride wait-time telemetry, and weather/seasonal data to predict crowd density, optimal attraction routing, and wait times across top theme parks. Built as a hands-on playground to master modern AI dev tools, prompt engineering, and real-time data streaming.</p>
+
+            <div class="viewport-frame bbox-hover">
+              <span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span>
+              <div class="viewport-bar">GET <span class="url">parks.brah.ms</span></div>
+              <div class="viewport-body"><span class="viewport-label">Product screenshot — replace with live capture</span></div>
+            </div>
+
+            <div class="feat3">
+              <div class="feat3-item"><div class="n">01</div><h4>Predictive Models</h4><p>AI-driven crowd forecasting &amp; wait-time estimates trained on historical park throughput data.</p></div>
+              <div class="feat3-item"><div class="n">02</div><h4>AI Tooling Sandbox</h4><p>Experimental field for rapid prototyping with modern LLMs, automated data agents, and clean UI design.</p></div>
+              <div class="feat3-item"><div class="n">03</div><h4>Itinerary Optimizer</h4><p>Algorithmic day planning to minimize queue time and maximize park enjoyment.</p></div>
+            </div>
+
+            <div class="pill-row">
+              <span class="pill">Python</span><span class="pill">Machine Learning</span><span class="pill">AI Dev Tools</span><span class="pill">Time-Series Analytics</span><span class="pill">REST &amp; Web APIs</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience">
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <div class="chip-cv">[ Log ] career_chain.dat <span class="conf">1.00</span></div>
+                <h2 class="sec-title">Work Experience</h2>
+                <p class="sec-desc">Technical leadership across XR spatial computing, defense, and aerospace engineering.</p>
+              </div>
+              <div class="sec-idx">04 / 06</div>
+            </div>
+
+            <div class="chain">
+              <div class="tl-item current">
+                <div class="joint"></div>
+                <div class="tl-date">2024 — Present</div>
+                <h3 class="tl-company">Magic Leap</h3>
+                <div class="tl-role">Software Engineering Director (Technical Lead)</div>
+                <div class="tl-sub">System Analysis, Verification, and Validation (SAVV) · Google XR Partnership</div>
+                <ul class="tl-bullets">
+                  <li>Established an engineering performance platform and source of truth for end-to-end AI assistant performance on prototype smart glasses, scaling evaluations from dozens of scenarios manually to thousands daily.</li>
+                  <li>Created a configuration-driven framework to scale automated AI assistant performance evaluation across 10+ tool integrations (YouTube Music, Calendar, Gmail).</li>
+                  <li>Led development of HIL (hardware-in-the-loop) infrastructure for prototype smart glasses, coordinating mechanical, software, and systems engineering for automated hardware-software validation.</li>
+                  <li>Built integration tooling and CLI workflows enabling automated testing through Android XR device farm and CI/CD pipelines with unattended 24/7 recovery.</li>
+                  <li>Developed an AI-driven engineering analysis platform automating root-cause investigation of complex hardware/software failures, reducing investigation time from hours to minutes.</li>
+                </ul>
+              </div>
+
+              <div class="tl-item">
+                <div class="joint"></div>
+                <div class="tl-date">2019 — 2024</div>
+                <h3 class="tl-company">Magic Leap</h3>
+                <div class="tl-role">Software Engineering Director, Senior Engineering Manager, Engineering Manager</div>
+                <div class="tl-sub">System Analysis, Verification, and Validation (SAVV)</div>
+                <ul class="tl-bullets">
+                  <li>Led engineering team building a robotics-based measurement platform for XR spatial computing performance (motion capture, display capture, computer vision, precision sync).</li>
+                  <li>Drove adoption of robotics-based performance platforms across perception, graphics, mechanical, electrical, and calibration teams.</li>
+                  <li>Replaced subjective manual evaluations with automated regression measurement for AR world-lock stability (quantifying registration error, drift, jitter, and latency).</li>
+                  <li>Established standardized hand-tracking benchmarks quantifying motion-to-photon latency, noise, and tracking error across competitive XR devices.</li>
+                </ul>
+              </div>
+
+              <div class="tl-item">
+                <div class="joint"></div>
+                <div class="tl-date">Jul 2018 — Dec 2019</div>
+                <h3 class="tl-company">Magic Leap</h3>
+                <div class="tl-role">Systems Test &amp; Integration Engineer (Contract)</div>
+                <ul class="tl-bullets">
+                  <li>Led technical execution of a 400-user device deployment program for Magic Leap One prior to commercial launch, managing OS provisioning, app setup, and checkout workflows.</li>
+                  <li>Developed telemetry analysis tools and reporting workflows transforming field data into commercial launch readiness insights.</li>
+                </ul>
+              </div>
+
+              <div class="tl-item">
+                <div class="joint"></div>
+                <div class="tl-date">Feb 2014 — Jul 2018</div>
+                <h3 class="tl-company">Belcan Corporation</h3>
+                <div class="tl-role">Senior Software Engineer &amp; Software Engineer</div>
+                <ul class="tl-bullets">
+                  <li>Engineered a rapid-prototyping and automation framework unifying C#, MATLAB, and Python workflows into a common execution environment, saving $300K in automation costs.</li>
+                  <li>Designed telemetry analytics systems for commercial and military engine programs, ingesting flight-test and fleet sensor data into troubleshooting pipelines.</li>
+                  <li>Built operational analytics engines ingesting ACARS/ACMF telemetry for fleet anomaly detection and FAA-required launch readiness decisions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="alt" id="skills">
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <div class="chip-cv">[ Diagnostics ] skills.sys <span class="conf">1.00</span></div>
+                <h2 class="sec-title">Skills &amp; Capabilities</h2>
+                <p class="sec-desc">Platform architecture, robotics, spatial computing, AI workflows, and software development.</p>
+              </div>
+              <div class="sec-idx">05 / 06</div>
+            </div>
+
+            <div class="skills-grid">
+              <div class="skill-panel">
+                <div class="skill-panel-head"><span class="skill-idx">01</span><h3>Languages</h3><span class="live-dot"></span></div>
+                <div class="skill-tags">
+                  <span class="skill-tag primary">Python</span>
+                  <span class="skill-tag">C++</span>
+                  <span class="skill-tag">C#</span>
+                  <span class="skill-tag">SQL</span>
+                  <span class="skill-tag">MATLAB</span>
+                  <span class="skill-tag">JavaScript / ES6+</span>
+                </div>
+              </div>
+              <div class="skill-panel">
+                <div class="skill-panel-head"><span class="skill-idx">02</span><h3>Infrastructure &amp; Platform</h3><span class="live-dot"></span></div>
+                <div class="skill-tags">
+                  <span class="skill-tag">Hardware-in-the-Loop</span>
+                  <span class="skill-tag">Device Farm Architecture</span>
+                  <span class="skill-tag">Git &amp; Jujutsu</span>
+                  <span class="skill-tag">Bazel</span>
+                  <span class="skill-tag">Docker</span>
+                  <span class="skill-tag">gRPC &amp; Protobuf</span>
+                  <span class="skill-tag">CI/CD Pipelines</span>
+                </div>
+              </div>
+              <div class="skill-panel">
+                <div class="skill-panel-head"><span class="skill-idx">03</span><h3>Automation &amp; Tooling</h3><span class="live-dot"></span></div>
+                <div class="skill-tags">
+                  <span class="skill-tag">AI-Assisted Analysis</span>
+                  <span class="skill-tag">Workflow Automation</span>
+                  <span class="skill-tag">Test Orchestration</span>
+                  <span class="skill-tag">Validation Frameworks</span>
+                  <span class="skill-tag">Android XR Devices</span>
+                  <span class="skill-tag">CLI Tooling</span>
+                </div>
+              </div>
+              <div class="skill-panel">
+                <div class="skill-panel-head"><span class="skill-idx">04</span><h3>Robotics, Vision &amp; Data</h3><span class="live-dot"></span></div>
+                <div class="skill-tags">
+                  <span class="skill-tag">OpenCV</span>
+                  <span class="skill-tag">Sensor Fusion</span>
+                  <span class="skill-tag">Camera Calibration</span>
+                  <span class="skill-tag">Hand-Eye Calibration</span>
+                  <span class="skill-tag">SLAM Validation</span>
+                  <span class="skill-tag">Pandas &amp; NumPy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="education">
+          <div class="wrap">
+            <div class="sec-head">
+              <div>
+                <div class="chip-cv">[ Record ] education.log <span class="conf">1.00</span></div>
+                <h2 class="sec-title">Education</h2>
+              </div>
+              <div class="sec-idx">06 / 06</div>
+            </div>
+
+            <div class="edu-grid">
+              <div class="edu-card bbox-hover">
+                <span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span>
+                <div class="edu-verified">Verified</div>
+                <h3 class="edu-degree">Master of Science in Computer Science</h3>
+                <div class="edu-school">Florida Atlantic University</div>
+                <div class="edu-date">Graduated December 2017</div>
+              </div>
+              <div class="edu-card bbox-hover">
+                <span class="bc tl"></span><span class="bc tr"></span><span class="bc bl"></span><span class="bc br"></span>
+                <div class="edu-verified">Verified</div>
+                <h3 class="edu-degree">Bachelor of Science in Aerospace Engineering</h3>
+                <div class="edu-school">University of Central Florida</div>
+                <div class="edu-date">Graduated May 2013</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="wrap">
+          <div class="footer-row">
+            <div>
+              <div class="footer-name">Eric Brahms</div>
+              <div class="footer-tag">Software Engineering Director (Technical Lead) — Spatial Computing &amp; AI Workflows</div>
+            </div>
+            <div class="footer-links">
+              <a href="mailto:eric@brah.ms">eric@brah.ms</a>
+              <a href="https://www.magicleap.com/display-integration" target="_blank" rel="noopener">Magic Leap Article &#8599;</a>
+              <a href="https://parks.brah.ms" target="_blank" rel="noopener">Theme Park Predictor &#8599;</a>
+              <a href="#">Resume PDF</a>
+            </div>
+          </div>
+          <div class="footer-bottom"><span class="rec-dot"></span>SYSTEM.STATUS: ONLINE &nbsp;//&nbsp; &copy; 2026 ERIC BRAHMS</div>
+        </div>
+      </footer>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script>
+      class Component extends DCLogic {
+        renderVals() {
+          return {};
+        }
+        componentDidMount() {
+          this._reticle = document.querySelector('.reticle');
+          this._cx = document.querySelector('.coord-x');
+          this._cy = document.querySelector('.coord-y');
+          this._onMove = (e) => {
+            if (this._reticle) {
+              this._reticle.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px)';
+              this._reticle.style.opacity = '0.5';
+            }
+            if (this._cx) this._cx.textContent = String(Math.max(0, Math.round(e.clientX))).padStart(4, '0');
+            if (this._cy) this._cy.textContent = String(Math.max(0, Math.round(e.clientY))).padStart(4, '0');
+          };
+          window.addEventListener('mousemove', this._onMove, { passive: true });
+        }
+        componentWillUnmount() {
+          if (this._onMove) window.removeEventListener('mousemove', this._onMove);
+        }
+      }
+    </script>
+  </body>
+</html>

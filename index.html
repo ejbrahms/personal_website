@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eric Brahms — Software Engineering Director, XR &amp; Robotics</title>
+  <meta name="description" content="Personal website of Eric Brahms. Software Engineering Director (Technical Lead) at Magic Leap, specializing in XR spatial computing, robotics-based measurement platforms, HIL automation, and AI engineering workflows." />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Eric Brahms — Software Engineering Director, XR & Robotics" />
+  <meta property="og:description" content="12+ years architecting robotics-based measurement platforms, spatial computing performance systems, and AI-assisted engineering workflows." />
+  <meta property="og:url" content="https://eric.brah.ms" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- decorative HUD backdrop: grid + scanline texture -->
+  <div class="hud-grid" aria-hidden="true"></div>
+  <div class="hud-scanlines" aria-hidden="true"></div>
+
+  <!-- custom targeting reticle cursor (desktop / fine-pointer only, JS-driven) -->
+  <div class="reticle" id="reticle" aria-hidden="true">
+    <svg viewBox="0 0 40 40" width="40" height="40">
+      <circle cx="20" cy="20" r="12" />
+      <line x1="20" y1="0" x2="20" y2="9" />
+      <line x1="20" y1="31" x2="20" y2="40" />
+      <line x1="0" y1="20" x2="9" y2="20" />
+      <line x1="31" y1="20" x2="40" y2="20" />
+    </svg>
+    <span class="reticle-coords" id="reticle-coords">X:0000 Y:0000</span>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="navbar">
+    <div class="wrap nav-row">
+      <a href="#hero" class="brand">
+        <span class="brand-mark">EB</span>
+        <span class="brand-name">Eric Brahms</span>
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="#about" class="nav-link active"><i>01</i>About</a>
+        <a href="#featured" class="nav-link"><i>02</i>Magic&nbsp;Leap</a>
+        <a href="#side-projects" class="nav-link"><i>03</i>Projects</a>
+        <a href="#experience" class="nav-link"><i>04</i>Experience</a>
+        <a href="#skills" class="nav-link"><i>05</i>Skills</a>
+        <a href="#education" class="nav-link"><i>06</i>Education</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="hud-clock" id="hud-clock" aria-hidden="true">
+          <span class="status-dot"></span>SYSTEM ONLINE · <span id="clock-time">00:00:00</span>
+        </div>
+
+        <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener" class="btn btn-line btn-sm">[ Resume&nbsp;PDF ]</a>
+        <a href="mailto:eric@brah.ms" class="btn btn-fill btn-sm">[ Contact ]</a>
+
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-reticle-wrap" id="hero-reticle" aria-hidden="true">
+        <svg class="hero-reticle" viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="160" />
+          <circle cx="200" cy="200" r="110" />
+          <circle cx="200" cy="200" r="4" />
+          <line x1="200" y1="0" x2="200" y2="60" />
+          <line x1="200" y1="340" x2="200" y2="400" />
+          <line x1="0" y1="200" x2="60" y2="200" />
+          <line x1="340" y1="200" x2="400" y2="200" />
+        </svg>
+      </div>
+
+      <div class="wrap hero-inner">
+        <div class="hero-kicker">
+          <span class="status-dot"></span>
+          Software Engineering Director (Technical Lead) — Magic Leap — SAVV / Google&nbsp;XR&nbsp;Partnership
+        </div>
+
+        <h1 class="reveal" id="about">
+          I build engineering infrastructure for spatial computing, robotics measurement &amp;
+          <span class="hl-amber">AI workflows.</span>
+        </h1>
+
+        <p class="lede reveal">
+          Principal software engineer and technical leader with 12+ years architecting hardware-in-the-loop
+          automation, robotics-based performance measurement systems, and AI-driven analysis tools for XR and
+          aerospace products.
+        </p>
+
+        <div class="cta-row reveal">
+          <a href="#featured" class="btn btn-fill">Featured Work <span>&#8594;</span></a>
+          <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-line">Theme Park Predictor <span>&#8599;</span></a>
+          <a href="mailto:eric@brah.ms" class="btn btn-ghost">eric@brah.ms</a>
+        </div>
+
+        <div class="stats reveal">
+          <div class="stat">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Years&nbsp;Technical&nbsp;Leadership</div>
+            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">Google&nbsp;XR</div>
+            <div class="stat-label">Partnership&nbsp;Technical&nbsp;Lead</div>
+            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">1,000s</div>
+            <div class="stat-label">Daily&nbsp;Automated&nbsp;AI&nbsp;Evals</div>
+            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">SAVV</div>
+            <div class="stat-label">Sys.&nbsp;Analysis,&nbsp;Verification&nbsp;&amp;&nbsp;Validation</div>
+            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED: Magic Leap -->
+    <section class="section" id="featured">
+      <div class="wrap">
+        <div class="sec-head lock-target">
+          <div>
+            <div class="eyebrow">Featured Coverage</div>
+            <h2 class="sec-title">Display Integration — Waveguides, Light Engines &amp; Human Comfort</h2>
+            <p class="sec-desc">
+              Our team's work in System Analysis, Verification, and Validation (SAVV) — optics integration,
+              robotics testing, and AI-assisted workflows — as featured on MagicLeap.com.
+            </p>
+          </div>
+          <div class="sec-idx">02 / 06</div>
+        </div>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="feat-grid">
+          <div class="bbox-frame always feat-media lock-target">
+            <img src="https://cdn.prod.website-files.com/67083eaf123e93296073a9a1/68f674d90ec714478b13ea01_hq-2025-einstein-robo-test-savv-(orange-mech-arm)-38a5294-v3-1320x1320-72dpi-s1-adj-fin-wo-leg.jpg" alt="Magic Leap SAVV robotics performance-testing platform" loading="lazy" />
+            <div class="scan-sweep" aria-hidden="true"></div>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <div class="hud-tag hud-tag-top">OBJ: DISPLAY_MODULE</div>
+            <div class="hud-tag hud-tag-bottom">CONF 99.2%</div>
+            <div class="media-cap">SAVV Robotic Test Fixture</div>
+          </div>
+
+          <div class="lock-target">
+            <div class="card-badge">Official Magic Leap Feature</div>
+            <h3 class="feat-title">
+              "Our engineering team tightly integrates display subassemblies, combining waveguides, light
+              engines, and human-centric calibration to deliver advanced displays built for augmented reality."
+            </h3>
+
+            <div class="hl-list">
+              <div class="hl-item">
+                <div class="hl-num">01</div>
+                <p><strong>Robotics-Based Spatial Measurement:</strong> Led the team architecting a
+                  robotics-based measurement platform — precision motion capture, display capture, computer
+                  vision, and synchronization — for millimeter-level spatial tracking &amp; display evaluation.</p>
+              </div>
+              <div class="hl-item">
+                <div class="hl-num">02</div>
+                <p><strong>Cross-Team Platform Adoption:</strong> Drove adoption of the robotics-based
+                  performance measurement platform across perception, graphics, mechanical, electrical, and
+                  calibration teams by establishing trusted, data-driven workflows.</p>
+              </div>
+              <div class="hl-item">
+                <div class="hl-num">03</div>
+                <p><strong>World-Lock &amp; Hand-Tracking Benchmarks:</strong> Replaced subjective manual
+                  evaluations with vision and signal-processing pipelines to quantify registration error,
+                  jitter, drift, and motion-to-photon latency.</p>
+              </div>
+            </div>
+
+            <a href="https://www.magicleap.com/display-integration" target="_blank" rel="noopener noreferrer" class="link-arrow">Read full article on MagicLeap.com <span>&#8599;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDE PROJECT: Theme Park Predictor -->
+    <section class="section alt" id="side-projects">
+      <div class="wrap">
+        <div class="sec-head lock-target">
+          <div>
+            <div class="eyebrow">Side Project &amp; Exploration</div>
+            <h2 class="sec-title">Theme Park Predictor</h2>
+            <p class="sec-desc">
+              Machine-learning crowd &amp; wait-time forecasting for top theme parks — a hands-on playground for
+              modern AI dev tools, prompt engineering, and real-time data streaming.
+            </p>
+          </div>
+          <div class="sec-idx">03 / 06</div>
+        </div>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="proj-head lock-target">
+          <div>
+            <span class="proj-domain">parks.brah.ms</span>
+            <p class="proj-desc">
+              Leverages machine-learning models, historical ride wait-time telemetry, and weather/seasonal data
+              to predict crowd density, optimal attraction routing, and wait times across top theme parks.
+            </p>
+          </div>
+          <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-sm">Visit Project <span>&#8599;</span></a>
+        </div>
+
+        <div class="bbox-frame always browser-frame lock-target">
+          <div class="browser-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="url">GET parks.brah.ms</span>
+            <span class="live">● LIVE</span>
+          </div>
+          <div class="browser-body">
+            <span class="browser-label">PRODUCT SCREENSHOT — REPLACE WITH LIVE CAPTURE</span>
+          </div>
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        </div>
+
+        <div class="feat3 lock-target">
+          <div class="feat3-item bbox-frame">
+            <div class="n">01</div>
+            <h4>Predictive Models</h4>
+            <p>AI-driven crowd forecasting &amp; wait-time estimates trained on historical park throughput data.</p>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+          <div class="feat3-item bbox-frame">
+            <div class="n">02</div>
+            <h4>AI Tooling Sandbox</h4>
+            <p>Experimental field for rapid prototyping with modern LLMs, automated data agents, and clean UI design.</p>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+          <div class="feat3-item bbox-frame">
+            <div class="n">03</div>
+            <h4>Itinerary Optimizer</h4>
+            <p>Algorithmic day planning to minimize queue time and maximize park enjoyment.</p>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Python</span>
+          <span class="pill">Machine Learning</span>
+          <span class="pill">AI Dev Tools</span>
+          <span class="pill">Time-Series Analytics</span>
+          <span class="pill">REST &amp; Web APIs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="wrap">
+        <div class="sec-head lock-target">
+          <div>
+            <div class="eyebrow">Career Journey</div>
+            <h2 class="sec-title">Work Experience</h2>
+            <p class="sec-desc">Technical leadership across XR spatial computing, defense, and aerospace engineering.</p>
+          </div>
+          <div class="sec-idx">04 / 06</div>
+        </div>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="timeline">
+          <div class="tl-item lock-target">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-date">2024 — Present</div>
+            <div>
+              <h3 class="tl-company">Magic Leap</h3>
+              <div class="tl-role">Software Engineering Director (Technical Lead)</div>
+              <div class="tl-sub">System Analysis, Verification, and Validation (SAVV) · Google XR Partnership</div>
+              <ul class="tl-bullets">
+                <li>Established an engineering performance platform and source of truth for end-to-end AI assistant performance on prototype smart glasses, scaling evaluations from dozens of scenarios manually to thousands daily.</li>
+                <li>Created a configuration-driven framework to scale automated AI assistant performance evaluation across 10+ tool integrations (YouTube Music, Calendar, Gmail).</li>
+                <li>Led development of HIL (Hardware-in-the-Loop) infrastructure for prototype smart glasses, coordinating mechanical, software, and systems engineering for automated hardware-software validation.</li>
+                <li>Built integration tooling and CLI workflows enabling automated testing through Android XR device farm and CI/CD pipelines with unattended 24/7 recovery.</li>
+                <li>Developed an AI-driven engineering analysis platform automating root-cause investigation of complex hardware/software failures, reducing investigation time from hours to minutes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item lock-target">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-date">2019 — 2024</div>
+            <div>
+              <h3 class="tl-company">Magic Leap</h3>
+              <div class="tl-role">Software Engineering Director, Senior Engineering Manager, Engineering Manager</div>
+              <div class="tl-sub">System Analysis, Verification, and Validation (SAVV)</div>
+              <ul class="tl-bullets">
+                <li>Led engineering team building a robotics-based measurement platform for XR spatial computing performance (motion capture, display capture, computer vision, precision sync).</li>
+                <li>Drove adoption of robotics-based performance platforms across perception, graphics, mechanical, electrical, and calibration teams.</li>
+                <li>Replaced subjective manual evaluations with automated regression measurement for AR world-lock stability (quantifying registration error, drift, jitter, and latency).</li>
+                <li>Established standardized hand-tracking benchmarks quantifying motion-to-photon latency, noise, and tracking error across competitive XR devices.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item lock-target">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-date">Jul 2018 — Dec 2019</div>
+            <div>
+              <h3 class="tl-company">Magic Leap</h3>
+              <div class="tl-role">Systems Test &amp; Integration Engineer (Contract)</div>
+              <ul class="tl-bullets">
+                <li>Led technical execution of a 400-user device deployment program for Magic Leap One prior to commercial launch, managing OS provisioning, app setup, and checkout workflows.</li>
+                <li>Developed telemetry analysis tools and reporting workflows transforming field data into commercial launch readiness insights.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item lock-target">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-date">Feb 2014 — Jul 2018</div>
+            <div>
+              <h3 class="tl-company">Belcan Corporation</h3>
+              <div class="tl-role">Senior Software Engineer &amp; Software Engineer</div>
+              <ul class="tl-bullets">
+                <li>Engineered a rapid-prototyping and automation framework unifying C#, MATLAB, and Python workflows into a common execution environment, saving $300K in automation costs.</li>
+                <li>Designed telemetry analytics systems for commercial and military engine programs, ingesting flight-test and fleet sensor data into troubleshooting pipelines.</li>
+                <li>Built operational analytics engines ingesting ACARS/ACMF telemetry for fleet anomaly detection and FAA-required launch readiness decisions.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section alt" id="skills">
+      <div class="wrap">
+        <div class="sec-head lock-target">
+          <div>
+            <div class="eyebrow">Technical Competencies</div>
+            <h2 class="sec-title">Skills &amp; Capabilities</h2>
+            <p class="sec-desc">Platform architecture, robotics, spatial computing, AI workflows, and software development.</p>
+          </div>
+          <div class="sec-idx">05 / 06</div>
+        </div>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="skills-grid lock-target">
+          <div class="skill-panel">
+            <div class="skill-idx">01</div>
+            <h3>Languages</h3>
+            <div class="skill-tags">
+              <span class="skill-tag primary">Python</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">C#</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">MATLAB</span>
+              <span class="skill-tag">JavaScript / ES6+</span>
+            </div>
+          </div>
+          <div class="skill-panel">
+            <div class="skill-idx">02</div>
+            <h3>Infrastructure &amp; Platform</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Hardware-in-the-Loop</span>
+              <span class="skill-tag">Device Farm Architecture</span>
+              <span class="skill-tag">Git &amp; Jujutsu</span>
+              <span class="skill-tag">Bazel</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">gRPC &amp; Protobuf</span>
+              <span class="skill-tag">CI/CD Pipelines</span>
+              <span class="skill-tag">Embedded Systems</span>
+            </div>
+          </div>
+          <div class="skill-panel">
+            <div class="skill-idx">03</div>
+            <h3>Automation &amp; Tooling</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">AI-Assisted Analysis</span>
+              <span class="skill-tag">Workflow Automation</span>
+              <span class="skill-tag">Test Orchestration</span>
+              <span class="skill-tag">Validation Frameworks</span>
+              <span class="skill-tag">Android XR Devices</span>
+              <span class="skill-tag">CLI Tooling</span>
+            </div>
+          </div>
+          <div class="skill-panel">
+            <div class="skill-idx">04</div>
+            <h3>Robotics, Vision &amp; Data</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">OpenCV</span>
+              <span class="skill-tag">Sensor Fusion</span>
+              <span class="skill-tag">Camera Calibration</span>
+              <span class="skill-tag">Hand-Eye Calibration</span>
+              <span class="skill-tag">SLAM Validation</span>
+              <span class="skill-tag">Telemetry Pipelines</span>
+              <span class="skill-tag">Pandas &amp; NumPy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section" id="education">
+      <div class="wrap">
+        <div class="sec-head lock-target">
+          <div>
+            <div class="eyebrow">Academic Background</div>
+            <h2 class="sec-title">Education</h2>
+          </div>
+          <div class="sec-idx">06 / 06</div>
+        </div>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="edu-grid lock-target">
+          <div class="bbox-frame always edu-card">
+            <h3 class="edu-degree">Master of Science in Computer Science</h3>
+            <div class="edu-school">Florida Atlantic University</div>
+            <div class="edu-date">Graduated December 2017</div>
+            <span class="corner tl"></span><span class="corner br"></span>
+          </div>
+          <div class="bbox-frame always edu-card">
+            <h3 class="edu-degree">Bachelor of Science in Aerospace Engineering</h3>
+            <div class="edu-school">University of Central Florida</div>
+            <div class="edu-date">Graduated May 2013</div>
+            <span class="corner tl"></span><span class="corner br"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <div>
+        <div class="footer-name">Eric Brahms</div>
+        <p class="footer-tag">Software Engineering Director (Technical Lead) — Spatial Computing &amp; AI Workflows</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:eric@brah.ms">eric@brah.ms</a>
+        <a href="https://www.magicleap.com/display-integration" target="_blank" rel="noopener">Magic Leap Article &#8599;</a>
+        <a href="https://parks.brah.ms" target="_blank" rel="noopener">Theme Park Predictor &#8599;</a>
+        <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener">Resume PDF</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">&copy; 2026 Eric Brahms. Built with precision and care.</div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
