@@ -15,51 +15,30 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <!-- decorative HUD backdrop: grid + scanline texture -->
-  <div class="hud-grid" aria-hidden="true"></div>
-  <div class="hud-scanlines" aria-hidden="true"></div>
-
-  <!-- custom targeting reticle cursor (desktop / fine-pointer only, JS-driven) -->
-  <div class="reticle" id="reticle" aria-hidden="true">
-    <svg viewBox="0 0 40 40" width="40" height="40">
-      <circle cx="20" cy="20" r="12" />
-      <line x1="20" y1="0" x2="20" y2="9" />
-      <line x1="20" y1="31" x2="20" y2="40" />
-      <line x1="0" y1="20" x2="9" y2="20" />
-      <line x1="31" y1="20" x2="40" y2="20" />
-    </svg>
-    <span class="reticle-coords" id="reticle-coords">X:0000 Y:0000</span>
-  </div>
-
   <!-- Navigation -->
   <header class="nav" id="navbar">
     <div class="wrap nav-row">
       <a href="#hero" class="brand">
-        <span class="brand-mark">EB</span>
         <span class="brand-name">Eric Brahms</span>
       </a>
 
       <nav class="nav-links" id="nav-menu">
-        <a href="#about" class="nav-link active"><i>01</i>About</a>
-        <a href="#featured" class="nav-link"><i>02</i>Magic&nbsp;Leap</a>
-        <a href="#side-projects" class="nav-link"><i>03</i>Projects</a>
-        <a href="#experience" class="nav-link"><i>04</i>Experience</a>
-        <a href="#skills" class="nav-link"><i>05</i>Skills</a>
-        <a href="#education" class="nav-link"><i>06</i>Education</a>
+        <a href="#about" class="nav-link active">About</a>
+        <a href="#featured" class="nav-link">Magic&nbsp;Leap</a>
+        <a href="#side-projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#education" class="nav-link">Education</a>
       </nav>
 
       <div class="nav-actions">
-        <div class="hud-clock" id="hud-clock" aria-hidden="true">
-          <span class="status-dot"></span>SYSTEM ONLINE · <span id="clock-time">00:00:00</span>
-        </div>
-
-        <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener" class="btn btn-line btn-sm">[ Resume&nbsp;PDF ]</a>
-        <a href="mailto:eric@brah.ms" class="btn btn-fill btn-sm">[ Contact ]</a>
+        <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener" class="btn btn-line btn-sm">Resume&nbsp;PDF</a>
+        <a href="mailto:eric@brah.ms" class="btn btn-fill btn-sm">Contact</a>
 
         <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -71,61 +50,44 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="hero">
-      <div class="hero-reticle-wrap" id="hero-reticle" aria-hidden="true">
-        <svg class="hero-reticle" viewBox="0 0 400 400">
-          <circle cx="200" cy="200" r="160" />
-          <circle cx="200" cy="200" r="110" />
-          <circle cx="200" cy="200" r="4" />
-          <line x1="200" y1="0" x2="200" y2="60" />
-          <line x1="200" y1="340" x2="200" y2="400" />
-          <line x1="0" y1="200" x2="60" y2="200" />
-          <line x1="340" y1="200" x2="400" y2="200" />
-        </svg>
-      </div>
-
       <div class="wrap hero-inner">
         <div class="hero-kicker">
-          <span class="status-dot"></span>
           Software Engineering Director (Technical Lead) — Magic Leap — SAVV / Google&nbsp;XR&nbsp;Partnership
         </div>
 
-        <h1 class="reveal" id="about">
+        <h1 id="about">
           I build engineering infrastructure for spatial computing, robotics measurement &amp;
           <span class="hl-amber">AI workflows.</span>
         </h1>
 
-        <p class="lede reveal">
+        <p class="lede">
           Principal software engineer and technical leader with 12+ years architecting hardware-in-the-loop
           automation, robotics-based performance measurement systems, and AI-driven analysis tools for XR and
           aerospace products.
         </p>
 
-        <div class="cta-row reveal">
+        <div class="cta-row">
           <a href="#featured" class="btn btn-fill">Featured Work <span>&#8594;</span></a>
           <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-line">Theme Park Predictor <span>&#8599;</span></a>
           <a href="mailto:eric@brah.ms" class="btn btn-ghost">eric@brah.ms</a>
         </div>
 
-        <div class="stats reveal">
+        <div class="stats">
           <div class="stat">
             <div class="stat-num">12+</div>
             <div class="stat-label">Years&nbsp;Technical&nbsp;Leadership</div>
-            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           </div>
           <div class="stat">
             <div class="stat-num">Google&nbsp;XR</div>
             <div class="stat-label">Partnership&nbsp;Technical&nbsp;Lead</div>
-            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           </div>
           <div class="stat">
             <div class="stat-num">1,000s</div>
             <div class="stat-label">Daily&nbsp;Automated&nbsp;AI&nbsp;Evals</div>
-            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           </div>
           <div class="stat">
             <div class="stat-num">SAVV</div>
             <div class="stat-label">Sys.&nbsp;Analysis,&nbsp;Verification&nbsp;&amp;&nbsp;Validation</div>
-            <div class="stat-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
           </div>
         </div>
       </div>
@@ -134,30 +96,23 @@
     <!-- FEATURED: Magic Leap -->
     <section class="section" id="featured">
       <div class="wrap">
-        <div class="sec-head lock-target">
-          <div>
-            <div class="eyebrow">Featured Coverage</div>
-            <h2 class="sec-title">Display Integration — Waveguides, Light Engines &amp; Human Comfort</h2>
-            <p class="sec-desc">
-              Our team's work in System Analysis, Verification, and Validation (SAVV) — optics integration,
-              robotics testing, and AI-assisted workflows — as featured on MagicLeap.com.
-            </p>
-          </div>
-          <div class="sec-idx">02 / 06</div>
+        <div class="sec-head reveal-target">
+          <div class="eyebrow">Featured Coverage</div>
+          <h2 class="sec-title">Robotics-Based Measurement &amp; End-to-End AR Device Testing</h2>
+          <p class="sec-desc">
+            Our SAVV team's work — robotics-based performance measurement, end-to-end AR device testing, and
+            AI-assisted workflows — as featured on MagicLeap.com.
+          </p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
         <div class="feat-grid">
-          <div class="bbox-frame always feat-media lock-target">
+          <div class="feat-media reveal-target">
             <img src="https://cdn.prod.website-files.com/67083eaf123e93296073a9a1/68f674d90ec714478b13ea01_hq-2025-einstein-robo-test-savv-(orange-mech-arm)-38a5294-v3-1320x1320-72dpi-s1-adj-fin-wo-leg.jpg" alt="Magic Leap SAVV robotics performance-testing platform" loading="lazy" />
-            <div class="scan-sweep" aria-hidden="true"></div>
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-            <div class="hud-tag hud-tag-top">OBJ: DISPLAY_MODULE</div>
-            <div class="hud-tag hud-tag-bottom">CONF 99.2%</div>
             <div class="media-cap">SAVV Robotic Test Fixture</div>
           </div>
 
-          <div class="lock-target">
+          <div class="reveal-target">
             <div class="card-badge">Official Magic Leap Feature</div>
             <h3 class="feat-title">
               "Our engineering team tightly integrates display subassemblies, combining waveguides, light
@@ -194,20 +149,17 @@
     <!-- SIDE PROJECT: Theme Park Predictor -->
     <section class="section alt" id="side-projects">
       <div class="wrap">
-        <div class="sec-head lock-target">
-          <div>
-            <div class="eyebrow">Side Project &amp; Exploration</div>
-            <h2 class="sec-title">Theme Park Predictor</h2>
-            <p class="sec-desc">
-              Machine-learning crowd &amp; wait-time forecasting for top theme parks — a hands-on playground for
-              modern AI dev tools, prompt engineering, and real-time data streaming.
-            </p>
-          </div>
-          <div class="sec-idx">03 / 06</div>
+        <div class="sec-head reveal-target">
+          <div class="eyebrow">Side Project &amp; Exploration</div>
+          <h2 class="sec-title">Theme Park Predictor</h2>
+          <p class="sec-desc">
+            Machine-learning crowd &amp; wait-time forecasting for top theme parks — a hands-on playground for
+            modern AI dev tools, prompt engineering, and real-time data streaming.
+          </p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
-        <div class="proj-head lock-target">
+        <div class="proj-head reveal-target">
           <div>
             <span class="proj-domain">parks.brah.ms</span>
             <p class="proj-desc">
@@ -218,36 +170,32 @@
           <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-sm">Visit Project <span>&#8599;</span></a>
         </div>
 
-        <div class="bbox-frame always browser-frame lock-target">
+        <div class="browser-frame reveal-target">
           <div class="browser-bar">
             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="url">GET parks.brah.ms</span>
-            <span class="live">● LIVE</span>
+            <span class="url">parks.brah.ms</span>
+            <span class="live">● Live</span>
           </div>
           <div class="browser-body">
-            <span class="browser-label">PRODUCT SCREENSHOT — REPLACE WITH LIVE CAPTURE</span>
+            <span class="browser-label">Product screenshot — replace with live capture</span>
           </div>
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         </div>
 
-        <div class="feat3 lock-target">
-          <div class="feat3-item bbox-frame">
+        <div class="feat3 reveal-target">
+          <div class="feat3-item">
             <div class="n">01</div>
             <h4>Predictive Models</h4>
             <p>AI-driven crowd forecasting &amp; wait-time estimates trained on historical park throughput data.</p>
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
           </div>
-          <div class="feat3-item bbox-frame">
+          <div class="feat3-item">
             <div class="n">02</div>
             <h4>AI Tooling Sandbox</h4>
             <p>Experimental field for rapid prototyping with modern LLMs, automated data agents, and clean UI design.</p>
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
           </div>
-          <div class="feat3-item bbox-frame">
+          <div class="feat3-item">
             <div class="n">03</div>
             <h4>Itinerary Optimizer</h4>
             <p>Algorithmic day planning to minimize queue time and maximize park enjoyment.</p>
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
           </div>
         </div>
 
@@ -264,19 +212,15 @@
     <!-- EXPERIENCE -->
     <section class="section" id="experience">
       <div class="wrap">
-        <div class="sec-head lock-target">
-          <div>
-            <div class="eyebrow">Career Journey</div>
-            <h2 class="sec-title">Work Experience</h2>
-            <p class="sec-desc">Technical leadership across XR spatial computing, defense, and aerospace engineering.</p>
-          </div>
-          <div class="sec-idx">04 / 06</div>
+        <div class="sec-head reveal-target">
+          <div class="eyebrow">Career Journey</div>
+          <h2 class="sec-title">Work Experience</h2>
+          <p class="sec-desc">Technical leadership across XR spatial computing, defense, and aerospace engineering.</p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
         <div class="timeline">
-          <div class="tl-item lock-target">
-            <div class="tl-marker" aria-hidden="true"></div>
+          <div class="tl-item reveal-target">
             <div class="tl-date">2024 — Present</div>
             <div>
               <h3 class="tl-company">Magic Leap</h3>
@@ -292,8 +236,7 @@
             </div>
           </div>
 
-          <div class="tl-item lock-target">
-            <div class="tl-marker" aria-hidden="true"></div>
+          <div class="tl-item reveal-target">
             <div class="tl-date">2019 — 2024</div>
             <div>
               <h3 class="tl-company">Magic Leap</h3>
@@ -308,8 +251,7 @@
             </div>
           </div>
 
-          <div class="tl-item lock-target">
-            <div class="tl-marker" aria-hidden="true"></div>
+          <div class="tl-item reveal-target">
             <div class="tl-date">Jul 2018 — Dec 2019</div>
             <div>
               <h3 class="tl-company">Magic Leap</h3>
@@ -321,8 +263,7 @@
             </div>
           </div>
 
-          <div class="tl-item lock-target">
-            <div class="tl-marker" aria-hidden="true"></div>
+          <div class="tl-item reveal-target">
             <div class="tl-date">Feb 2014 — Jul 2018</div>
             <div>
               <h3 class="tl-company">Belcan Corporation</h3>
@@ -341,19 +282,15 @@
     <!-- SKILLS -->
     <section class="section alt" id="skills">
       <div class="wrap">
-        <div class="sec-head lock-target">
-          <div>
-            <div class="eyebrow">Technical Competencies</div>
-            <h2 class="sec-title">Skills &amp; Capabilities</h2>
-            <p class="sec-desc">Platform architecture, robotics, spatial computing, AI workflows, and software development.</p>
-          </div>
-          <div class="sec-idx">05 / 06</div>
+        <div class="sec-head reveal-target">
+          <div class="eyebrow">Technical Competencies</div>
+          <h2 class="sec-title">Skills &amp; Capabilities</h2>
+          <p class="sec-desc">Platform architecture, robotics, spatial computing, AI workflows, and software development.</p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
-        <div class="skills-grid lock-target">
+        <div class="skills-grid reveal-target">
           <div class="skill-panel">
-            <div class="skill-idx">01</div>
             <h3>Languages</h3>
             <div class="skill-tags">
               <span class="skill-tag primary">Python</span>
@@ -365,7 +302,6 @@
             </div>
           </div>
           <div class="skill-panel">
-            <div class="skill-idx">02</div>
             <h3>Infrastructure &amp; Platform</h3>
             <div class="skill-tags">
               <span class="skill-tag">Hardware-in-the-Loop</span>
@@ -379,7 +315,6 @@
             </div>
           </div>
           <div class="skill-panel">
-            <div class="skill-idx">03</div>
             <h3>Automation &amp; Tooling</h3>
             <div class="skill-tags">
               <span class="skill-tag">AI-Assisted Analysis</span>
@@ -391,7 +326,6 @@
             </div>
           </div>
           <div class="skill-panel">
-            <div class="skill-idx">04</div>
             <h3>Robotics, Vision &amp; Data</h3>
             <div class="skill-tags">
               <span class="skill-tag">OpenCV</span>
@@ -410,27 +344,22 @@
     <!-- EDUCATION -->
     <section class="section" id="education">
       <div class="wrap">
-        <div class="sec-head lock-target">
-          <div>
-            <div class="eyebrow">Academic Background</div>
-            <h2 class="sec-title">Education</h2>
-          </div>
-          <div class="sec-idx">06 / 06</div>
+        <div class="sec-head reveal-target">
+          <div class="eyebrow">Academic Background</div>
+          <h2 class="sec-title">Education</h2>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
-        <div class="edu-grid lock-target">
-          <div class="bbox-frame always edu-card">
+        <div class="edu-grid reveal-target">
+          <div class="edu-card">
             <h3 class="edu-degree">Master of Science in Computer Science</h3>
             <div class="edu-school">Florida Atlantic University</div>
             <div class="edu-date">Graduated December 2017</div>
-            <span class="corner tl"></span><span class="corner br"></span>
           </div>
-          <div class="bbox-frame always edu-card">
+          <div class="edu-card">
             <h3 class="edu-degree">Bachelor of Science in Aerospace Engineering</h3>
             <div class="edu-school">University of Central Florida</div>
             <div class="edu-date">Graduated May 2013</div>
-            <span class="corner tl"></span><span class="corner br"></span>
           </div>
         </div>
       </div>
