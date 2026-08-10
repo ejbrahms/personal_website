@@ -1,5 +1,9 @@
 // eric.brah.ms — interactions
 
+import { inject } from '@vercel/analytics';
+
+inject();
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.addEventListener('DOMContentLoaded', () => {
