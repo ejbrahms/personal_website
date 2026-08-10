@@ -1,8 +1,8 @@
 /* ============================================================
    eric.brah.ms — "Modern Editorial"
-   Warm paper ground, serif display type, one terracotta accent.
+   Warm paper ground, serif display type, a blue/amber accent duo.
    No cards, no gradients, no glow — hairlines and whitespace
-   carry the hierarchy.
+   carry the hierarchy. All color pairs verified ≥4.5:1 (WCAG AA).
    ============================================================ */
 
 :root {
@@ -11,13 +11,13 @@
 
   --ink: #211d19;
   --ink-soft: #58524a;
-  --ink-faint: #8c8477;
+  --ink-faint: #6b6459;
 
   --line: #e7ddd0;
   --line-strong: #d6c9b6;
 
-  --accent: #b6502e;
-  --accent-soft: #f3ded1;
+  --accent: #3457c7;
+  --accent-secondary: #9c6318;
   --accent-ink: #fff9f5;
 
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
@@ -31,13 +31,13 @@
 
     --ink: #f3ece1;
     --ink-soft: #c3b9a9;
-    --ink-faint: #8e8371;
+    --ink-faint: #a89d8c;
 
     --line: #382e23;
     --line-strong: #4a3d2d;
 
-    --accent: #e2794f;
-    --accent-soft: #3b2718;
+    --accent: #7c9ff2;
+    --accent-secondary: #e0a93f;
     --accent-ink: #1c1712;
   }
 }
@@ -48,13 +48,13 @@
 
   --ink: #f3ece1;
   --ink-soft: #c3b9a9;
-  --ink-faint: #8e8371;
+  --ink-faint: #a89d8c;
 
   --line: #382e23;
   --line-strong: #4a3d2d;
 
-  --accent: #e2794f;
-  --accent-soft: #3b2718;
+  --accent: #7c9ff2;
+  --accent-secondary: #e0a93f;
   --accent-ink: #1c1712;
 }
 
@@ -81,6 +81,14 @@ em { font-style: italic; }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 section.section { padding: 96px 0; }
 .section.alt { background: var(--paper-raised); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+.skip-link {
+  position: absolute; top: -100px; left: 12px; z-index: 200;
+  background: var(--ink); color: var(--paper);
+  padding: 12px 20px; border-radius: 3px; font-size: 14px; font-weight: 500;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 12px; }
 
 /* ---------------------------------------------------------
    Nav
@@ -179,7 +187,7 @@ section.section { padding: 96px 0; }
 }
 .stat { padding: 20px 20px 0 0; border-right: 1px solid var(--line); }
 .stat:last-child { border-right: none; }
-.stat-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--ink); }
+.stat-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--accent-secondary); }
 .stat-label { font-size: 12.5px; color: var(--ink-faint); margin-top: 6px; }
 
 /* ---------------------------------------------------------
@@ -220,7 +228,7 @@ section.section { padding: 96px 0; }
 .hl-list { display: flex; flex-direction: column; gap: 22px; margin-bottom: 36px; }
 .hl-item { display: flex; gap: 16px; }
 .hl-num {
-  font-family: var(--serif); font-size: 14px; font-weight: 500; color: var(--accent);
+  font-family: var(--serif); font-size: 14px; font-weight: 500; color: var(--accent-secondary);
   width: 26px; flex-shrink: 0;
 }
 .hl-item p { color: var(--ink-soft); font-size: 0.96rem; }
@@ -251,8 +259,8 @@ section.section { padding: 96px 0; }
 .feat3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 34px; border-radius: 4px; overflow: hidden; }
 .feat3-item { background: var(--paper); padding: 28px 26px; }
 .section.alt .feat3-item { background: var(--paper-raised); }
-.feat3-item .n { font-family: var(--serif); font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 16px; }
-.feat3-item h4 { font-weight: 600; font-size: 1.02rem; margin-bottom: 8px; font-family: var(--sans); }
+.feat3-item .n { font-family: var(--serif); font-size: 14px; font-weight: 500; color: var(--accent-secondary); margin-bottom: 16px; }
+.feat3-item h3 { font-weight: 600; font-size: 1.02rem; margin-bottom: 8px; font-family: var(--sans); }
 .feat3-item p { color: var(--ink-soft); font-size: 0.9rem; }
 
 .pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -273,7 +281,7 @@ section.section { padding: 96px 0; }
 .tl-sub { font-family: var(--serif); font-style: italic; color: var(--ink-faint); font-size: 0.88rem; margin-bottom: 18px; }
 .tl-bullets { display: flex; flex-direction: column; gap: 11px; }
 .tl-bullets li { position: relative; padding-left: 18px; color: var(--ink-soft); font-size: 0.94rem; }
-.tl-bullets li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.tl-bullets li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-secondary); }
 
 /* ---------------------------------------------------------
    Skills
@@ -283,7 +291,7 @@ section.section { padding: 96px 0; }
 .skill-panel h3 { font-weight: 600; font-size: 1rem; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font-family: var(--sans); }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .skill-tag { font-size: 12.5px; border-radius: 3px; border: 1px solid var(--line-strong); padding: 5px 11px; color: var(--ink-soft); }
-.skill-tag.primary { border-color: var(--accent); color: var(--accent); }
+.skill-tag.primary { border-color: var(--accent-secondary); color: var(--accent-secondary); }
 
 /* ---------------------------------------------------------
    Education

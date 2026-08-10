@@ -49,9 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
         navLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
+          const isCurrent = link.getAttribute('href') === `#${sectionId}`;
+          link.classList.toggle('active', isCurrent);
+          if (isCurrent) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
           }
         });
       }

@@ -31,6 +31,8 @@
   </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
   <!-- Navigation -->
   <header class="nav">
     <div class="wrap nav-row">
@@ -39,8 +41,8 @@
         <span class="brand-name">Eric&nbsp;Brahms</span>
       </a>
 
-      <nav class="nav-links" id="nav-menu">
-        <a href="#hero" class="nav-link active">About</a>
+      <nav class="nav-links" id="nav-menu" aria-label="Section">
+        <a href="#hero" class="nav-link active" aria-current="true">About</a>
         <a href="#featured" class="nav-link">Magic&nbsp;Leap</a>
         <a href="#side-projects" class="nav-link">Projects</a>
         <a href="#experience" class="nav-link">Experience</a>
@@ -57,14 +59,14 @@
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
 
-        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="nav-menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- HERO -->
     <section class="hero" id="hero">
       <div class="wrap hero-inner">
@@ -199,17 +201,17 @@
         <div class="feat3 reveal-target">
           <div class="feat3-item">
             <div class="n">01</div>
-            <h4>Forecasting models</h4>
+            <h3>Forecasting models</h3>
             <p>ML models trained on historical throughput data to predict crowds and wait times before you arrive.</p>
           </div>
           <div class="feat3-item">
             <div class="n">02</div>
-            <h4>An AI tooling sandbox</h4>
+            <h3>An AI tooling sandbox</h3>
             <p>Where I prototype with new LLMs, agentic workflows, and interface design outside of work constraints.</p>
           </div>
           <div class="feat3-item">
             <div class="n">03</div>
-            <h4>Itinerary optimizer</h4>
+            <h3>Itinerary optimizer</h3>
             <p>Plans a day route algorithmically to cut queue time and fit more into the day.</p>
           </div>
         </div>
