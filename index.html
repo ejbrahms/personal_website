@@ -162,67 +162,148 @@
       </div>
     </section>
 
-    <!-- SIDE PROJECT: Theme Park Predictor -->
+    <!-- SIDE PROJECTS -->
     <section class="section alt" id="side-projects">
       <div class="wrap">
         <div class="sec-head reveal-target">
-          <div class="eyebrow">Side project</div>
-          <h2 class="sec-title">Theme Park Predictor</h2>
+          <div class="eyebrow">Side projects</div>
+          <h2 class="sec-title">What I build on my own time</h2>
           <p class="sec-desc">
-            A crowd- and wait-time forecasting tool for major theme parks, and my testing ground for
-            AI-assisted development, prompt engineering, and real-time data pipelines.
+            Two systems I actually run: a governance layer that decides what AI agents are allowed
+            to do, and a crowd-forecasting tool that doubles as my sandbox for AI-assisted development.
           </p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
 
-        <div class="proj-head reveal-target">
-          <div>
-            <span class="proj-domain">parks.brah.ms</span>
-            <p class="proj-desc">
-              Combines machine-learning models, historical wait-time telemetry, and weather and seasonal
-              signals to forecast crowd levels, recommend attraction routing, and estimate wait times
-              across major theme parks.
-            </p>
+        <!-- Windrow -->
+        <article class="proj">
+          <div class="proj-head reveal-target">
+            <div>
+              <span class="proj-domain">github.com/ejbrahms/Windrow</span>
+              <h3 class="proj-title">Windrow</h3>
+              <p class="proj-desc">
+                A governance layer for AI agents. Windrow sits between agents and the MCP tools they
+                call, so every capability is granted on purpose and every call leaves a record — who
+                is allowed to use the Gmail tools, who actually used them last week, and what has been
+                quietly denied.
+              </p>
+            </div>
+            <a href="https://github.com/ejbrahms/Windrow" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-sm">View on GitHub <span>&#8599;</span></a>
           </div>
-          <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-sm">Visit the site <span>&#8599;</span></a>
-        </div>
 
-        <div class="browser-frame reveal-target">
-          <div class="browser-bar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="url">parks.brah.ms</span>
-            <span class="live">● Live</span>
+          <div class="browser-frame reveal-target">
+            <div class="browser-bar">
+              <span class="url">Capability broker &mdash; request path</span>
+              <span class="live">&#9679; Enforced live</span>
+            </div>
+            <div class="browser-body flow-body">
+              <div class="flow">
+                <div class="flow-row">
+                  <span class="flow-node">Agent</span>
+                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
+                  <span class="flow-node is-broker">Capability broker</span>
+                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
+                  <span class="flow-branch">
+                    <span class="flow-node is-allow">Allowed &mdash; tool executes</span>
+                    <span class="flow-node is-deny">Denied, or a human is asked</span>
+                  </span>
+                </div>
+                <div class="flow-note">
+                  Checked against the capability registry on every call &mdash; a capability with no
+                  grant is never a silent pass-through.
+                </div>
+                <div class="flow-row flow-tail">
+                  <span class="flow-node">Usage event log</span>
+                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
+                  <span class="flow-node">Dashboard</span>
+                  <span class="flow-note flow-note-inline">Who, what, when, outcome, latency.</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="browser-body">
-            <img src="/images/parks-brah-ms-screenshot.jpg" alt="Theme Park Predictor itinerary planner interface" loading="lazy" />
-          </div>
-        </div>
 
-        <div class="feat3 reveal-target">
-          <div class="feat3-item">
-            <div class="n">01</div>
-            <h3>Forecasting models</h3>
-            <p>ML models trained on historical throughput data to predict crowds and wait times before you arrive.</p>
+          <div class="feat3 reveal-target">
+            <div class="feat3-item">
+              <div class="n">01</div>
+              <h3>Capability registry</h3>
+              <p>Every MCP tool and skill on the machine, catalogued and tied to grants that say which agent role — or which specific running instance — may call it.</p>
+            </div>
+            <div class="feat3-item">
+              <div class="n">02</div>
+              <h3>Live enforcement</h3>
+              <p>PreToolUse and PostToolUse hooks broker each call as it happens: allowed, denied outright, or escalated to a human as an inline confirmation.</p>
+            </div>
+            <div class="feat3-item">
+              <div class="n">03</div>
+              <h3>Audit trail &amp; drift</h3>
+              <p>Every invocation lands in a usage log with outcome and latency, so stale grants and high-denial capabilities surface before a security review has to go grepping.</p>
+            </div>
           </div>
-          <div class="feat3-item">
-            <div class="n">02</div>
-            <h3>An AI tooling sandbox</h3>
-            <p>Where I prototype with new LLMs, agentic workflows, and interface design outside of work constraints.</p>
-          </div>
-          <div class="feat3-item">
-            <div class="n">03</div>
-            <h3>Itinerary optimizer</h3>
-            <p>Plans a day route algorithmically to cut queue time and fit more into the day.</p>
-          </div>
-        </div>
 
-        <div class="pill-row">
-          <span class="pill">Python</span>
-          <span class="pill">Machine Learning</span>
-          <span class="pill">AI Dev Tools</span>
-          <span class="pill">Time-Series Analytics</span>
-          <span class="pill">REST &amp; Web APIs</span>
-        </div>
+          <div class="pill-row">
+            <span class="pill">Node.js</span>
+            <span class="pill">Express</span>
+            <span class="pill">SQLite</span>
+            <span class="pill">React &amp; Vite</span>
+            <span class="pill">Model Context Protocol</span>
+            <span class="pill">Agent Hooks</span>
+          </div>
+        </article>
+
+        <div class="proj-divider" aria-hidden="true"></div>
+
+        <!-- Theme Park Predictor -->
+        <article class="proj">
+          <div class="proj-head reveal-target">
+            <div>
+              <span class="proj-domain">parks.brah.ms</span>
+              <h3 class="proj-title">Theme Park Predictor</h3>
+              <p class="proj-desc">
+                Combines machine-learning models, historical wait-time telemetry, and weather and seasonal
+                signals to forecast crowd levels, recommend attraction routing, and estimate wait times
+                across major theme parks.
+              </p>
+            </div>
+            <a href="https://parks.brah.ms" target="_blank" rel="noopener noreferrer" class="btn btn-fill btn-sm">Visit the site <span>&#8599;</span></a>
+          </div>
+
+          <div class="browser-frame reveal-target">
+            <div class="browser-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="url">parks.brah.ms</span>
+              <span class="live">&#9679; Live</span>
+            </div>
+            <div class="browser-body">
+              <img src="/images/parks-brah-ms-screenshot.jpg" alt="Theme Park Predictor itinerary planner interface" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="feat3 reveal-target">
+            <div class="feat3-item">
+              <div class="n">01</div>
+              <h3>Forecasting models</h3>
+              <p>ML models trained on historical throughput data to predict crowds and wait times before you arrive.</p>
+            </div>
+            <div class="feat3-item">
+              <div class="n">02</div>
+              <h3>An AI tooling sandbox</h3>
+              <p>Where I prototype with new LLMs, agentic workflows, and interface design outside of work constraints.</p>
+            </div>
+            <div class="feat3-item">
+              <div class="n">03</div>
+              <h3>Itinerary optimizer</h3>
+              <p>Plans a day route algorithmically to cut queue time and fit more into the day.</p>
+            </div>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Python</span>
+            <span class="pill">Machine Learning</span>
+            <span class="pill">AI Dev Tools</span>
+            <span class="pill">Time-Series Analytics</span>
+            <span class="pill">REST &amp; Web APIs</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -392,6 +473,7 @@
       <div class="footer-links">
         <a href="mailto:eric@brah.ms">eric@brah.ms</a>
         <a href="https://www.magicleap.com/display-integration" target="_blank" rel="noopener">Magic Leap article &#8599;</a>
+        <a href="https://github.com/ejbrahms/Windrow" target="_blank" rel="noopener">Windrow on GitHub &#8599;</a>
         <a href="https://parks.brah.ms" target="_blank" rel="noopener">Theme Park Predictor &#8599;</a>
         <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener">Résumé PDF</a>
       </div>
