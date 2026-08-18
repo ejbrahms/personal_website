@@ -54,6 +54,10 @@
         <a href="/EricBrahms_Resume.pdf" target="_blank" rel="noopener" class="btn btn-line btn-sm">Résumé</a>
         <a href="mailto:eric@brah.ms" class="btn btn-fill btn-sm">Get in touch</a>
 
+        <a href="https://www.linkedin.com/in/eric-brahms/" target="_blank" rel="noopener" class="icon-link" aria-label="Eric Brahms on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+        </a>
+
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -169,8 +173,9 @@
           <div class="eyebrow">Side projects</div>
           <h2 class="sec-title">What I build on my own time</h2>
           <p class="sec-desc">
-            Two systems I actually run: a governance layer that decides what AI agents are allowed
-            to do, and a crowd-forecasting tool that doubles as my sandbox for AI-assisted development.
+            A governance layer — a deep dive into agent guardrails — that gives observability into,
+            and decides what, AI agents are allowed to do, and a crowd-forecasting tool that doubles
+            as my sandbox for AI-assisted development.
           </p>
         </div>
         <div class="ruler" aria-hidden="true"></div>
@@ -193,32 +198,12 @@
 
           <div class="browser-frame reveal-target">
             <div class="browser-bar">
-              <span class="url">Capability broker &mdash; request path</span>
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="url">Usage dashboard</span>
               <span class="live">&#9679; Enforced live</span>
             </div>
-            <div class="browser-body flow-body">
-              <div class="flow">
-                <div class="flow-row">
-                  <span class="flow-node">Agent</span>
-                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
-                  <span class="flow-node is-broker">Capability broker</span>
-                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
-                  <span class="flow-branch">
-                    <span class="flow-node is-allow">Allowed &mdash; tool executes</span>
-                    <span class="flow-node is-deny">Denied, or a human is asked</span>
-                  </span>
-                </div>
-                <div class="flow-note">
-                  Checked against the capability registry on every call &mdash; a capability with no
-                  grant is never a silent pass-through.
-                </div>
-                <div class="flow-row flow-tail">
-                  <span class="flow-node">Usage event log</span>
-                  <span class="flow-arrow" aria-hidden="true">&#8594;</span>
-                  <span class="flow-node">Dashboard</span>
-                  <span class="flow-note flow-note-inline">Who, what, when, outcome, latency.</span>
-                </div>
-              </div>
+            <div class="browser-body">
+              <img src="/images/windrow-dashboard-screenshot.png" alt="Windrow usage dashboard showing the per-phase latency breakdown, calls-over-time chart, and recent-calls table with per-call outcomes and latency" loading="lazy" />
             </div>
           </div>
 
