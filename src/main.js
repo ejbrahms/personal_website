@@ -1,4 +1,4 @@
-// eric.brah.ms — interactions
+// eric.brah.ms - interactions
 
 import { inject } from '@vercel/analytics';
 

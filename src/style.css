@@ -1,7 +1,7 @@
 /* ============================================================
-   eric.brah.ms — "Modern Editorial"
+   eric.brah.ms - "Modern Editorial"
    Warm paper ground, serif display type, a blue/amber accent duo.
-   No cards, no gradients, no glow — hairlines and whitespace
+   No cards, no gradients, no glow: hairlines and whitespace
    carry the hierarchy. All color pairs verified ≥4.5:1 (WCAG AA).
    ============================================================ */
 
@@ -99,7 +99,9 @@ section.section { padding: 96px 0; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
-.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; gap: 20px; }
+/* .nav-row already carries .wrap (padding 0 32px); keep only the vertical padding
+   here so the nav isn't double-indented and the mobile actions never overflow. */
+.nav-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 20px; }
 .brand { display: flex; align-items: center; gap: 10px; }
 .brand-mark {
   display: flex; align-items: center; justify-content: center;
@@ -219,7 +221,7 @@ section.section { padding: 96px 0; }
 @media (prefers-reduced-motion: reduce) { .reveal-target { opacity: 1; transform: none; transition: none; } }
 
 /* ---------------------------------------------------------
-   Featured — Magic Leap
+   Featured - Magic Leap
    --------------------------------------------------------- */
 .feat-grid { display: grid; grid-template-columns: 0.95fr 1.1fr; gap: 56px; align-items: start; }
 
@@ -369,8 +371,12 @@ section.section { padding: 96px 0; }
   .nav-links a { padding: 16px 32px; border-bottom: 1px solid var(--line); }
   .hamburger-btn { display: flex; }
   .hero { padding-top: 132px; }
-  .btn-line { display: none; }
   .lb { display: inline; }
+  /* Keep the mobile nav bar to essentials (brand · Résumé · theme · menu) so the
+     hamburger never gets pushed off-screen. Email lives in the hero + footer,
+     LinkedIn in the footer. */
+  .nav-actions .btn-fill,
+  .nav-actions .icon-link { display: none; }
 }
 
 @media (max-width: 720px) {
