@@ -345,6 +345,8 @@ section.section { padding: 96px 0; }
 .footer-links a { font-size: 14px; color: var(--ink-soft); }
 .footer-links a:hover { color: var(--accent); }
 .footer-bottom { border-top: 1px solid var(--line); padding-top: 22px; font-size: 13px; color: var(--ink-faint); text-align: center; }
+.footer-version a { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: inherit; }
+.footer-version a:hover { color: var(--accent); }
 
 /* ---------------------------------------------------------
    Responsive
